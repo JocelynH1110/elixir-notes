@@ -13,6 +13,10 @@ defmodule Cards do
       :world
 
   """
+
+  @doc """
+    Returns a list of strings representing a deck of playing cards
+  """
   def create_deck do
     values = ["Ace", "Two", "Three"]
     suits = ["Spades", "Clubs", "Hearts", "Diamond"]
@@ -22,7 +26,9 @@ defmodule Cards do
     end
   end
 
-  # 將 deck 隨機排列
+  @doc """
+    將 deck 隨機排列
+  """
   def shuffle(deck) do
     Enum.shuffle(deck)
   end
@@ -32,6 +38,18 @@ defmodule Cards do
     Enum.member?(deck, card)
   end
 
+  @doc """
+    Divides a deck into a hand and the remainder of the deck.
+    The `hand_size` argument indicates how many cards should be in the hand.
+
+  ## Examples
+      
+      iex> deck = Cards.create_deck
+      iex> {hand, deck} = Cards.deal(deck, 1)
+      iex> hand
+      ["Ace of Spades"]
+
+  """
   # 將 deck 裡的資料按 hand_size 給的數量瓜分出來
   def deal(deck, hand_size) do
     Enum.split(deck, hand_size)
