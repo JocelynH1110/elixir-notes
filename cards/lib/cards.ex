@@ -5,16 +5,6 @@ defmodule Cards do
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Cards.hello()
-      :world
-
-  """
-
-  @doc """
     Returns a list of strings representing a deck of playing cards
   """
   def create_deck do
@@ -32,8 +22,16 @@ defmodule Cards do
   def shuffle(deck) do
     Enum.shuffle(deck)
   end
+  
+  @doc """
+    確認 card 內的東西有沒有在 deck 裏
 
-  # 確認 card 內的東西有沒有在 deck 裏
+  ## Examples
+
+      iex> deck = Cards.create_deck
+      iex> Cards.contains?(deck, "Ace of Spades")
+      true
+  """
   def contains?(deck, card) do
     Enum.member?(deck, card)
   end
