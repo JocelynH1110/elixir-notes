@@ -1,0 +1,8 @@
+[env]
+ERL_AFLAGS="-kernel shell_history enabled"
+
+[tools]
+elixir = "1.6-otp-20"
+erlang = "20"
+node = "12"
+"npm:yarn" = "latest"
