@@ -7,7 +7,10 @@ defmodule Discuss.Topic do
     field :title, :string
   end
 
-  # struct 代表在資料庫裡的紀錄；params 代表我們想更新的
+  @doc """
+    changeset 函式是要驗證資料庫更新的資料
+  """
+  # struct 代表在資料庫裡的紀錄；params 代表我們想更新的資料
   # // 做了預設值引數在 elixir，如果傳送一個 nil 給 params，它將被預設為 empty map
   def changeset(struct, params \\ %{}) do 
     struct
