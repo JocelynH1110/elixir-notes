@@ -5,6 +5,9 @@ defmodule Discuss.TopicController do
 
   # 這裡的 params 用來幫助我們解析 URL
   def new(conn, params) do
-    changeset = Topic.changeset(%Topic, %{})
+    changeset = Topic.changeset(%Topic{}, %{})
+
+    # show the new template
+    render conn, "new.html"
   end
 end

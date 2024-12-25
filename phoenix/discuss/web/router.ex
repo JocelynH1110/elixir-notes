@@ -19,6 +19,7 @@ defmodule Discuss.Router do
     get "/", PageController, :index
     # makes "/topics/new" request,then send them to ":new"
     get "/topics/new",TopicController, :new
+    get "/topics/:id", TopicController, :show
   end
 
   # Other scopes may use custom stacks.
