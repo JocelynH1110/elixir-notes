@@ -8,6 +8,7 @@ defmodule Discuss.TopicController do
     changeset = Topic.changeset(%Topic{}, %{})
 
     # show the new template
-    render conn, "new.html"
+    # 將自定的變數 changeset 傳到 template
+    render conn, "new.html", changeset: changeset
   end
 end
