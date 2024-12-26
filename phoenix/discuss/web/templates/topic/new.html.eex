@@ -1,7 +1,8 @@
 <!--用 @changeset 建立一個表， 當在表格上按下完成鈕，送到和 topic 有關的 :create router-->
+<!--topic_path 這個 argument 是告訴 form 要在哪裡完成-->
 <%= form_for @changeset, topic_path(@conn, :create), fn f -> %>
   <div class="form-group">
-    <%= text_input f, :tittle, placeholder: "Title", class: "form-control" %>
+    <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
   </div>
 
   <%= submit "Save Topic", class: "btn btn-primary" %>
