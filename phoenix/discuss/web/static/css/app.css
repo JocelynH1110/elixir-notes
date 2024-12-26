@@ -1,1 +1,16 @@
 /* This file is for your main application css. */
+ 
+.help-block {
+  color: red;
+  text-transform: capitalize; /* 每個字首字母大寫*/
+  position: absolute;
+  top: 50px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 40px;
+} 
+  
+
+
