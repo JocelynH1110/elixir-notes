@@ -21,7 +21,8 @@ defmodule Discuss.TopicController do
     # insert 會自動探測 changeset 是否有符合
     case Repo.insert(changeset) do
     {:ok, post} ->IO.inspect(post) 
-    {:error, changeset} ->IO.inspect(changeset)
+    {:error, changeset} ->
+      render conn, "new.html", changeset: changeset
     end
   end
 end
