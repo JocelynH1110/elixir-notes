@@ -8,21 +8,24 @@ defmodule Discuss.TopicController do
     取得所有資料庫儲存的資料，並套用 template
   """
   def index(conn, _params) do
-    topics = Repo.all(Topic)  # Topic 是資料表名稱。等於 topics = Discuss.Repo.all(Discuss.Topic)
+    topics = Repo.all(Topic)  # 等於 topics = Discuss.Repo.all(Discuss.Topic)
+
+    render conn, "index.html", topics: topics
   end
 
   @doc """
+     用來顯示要新增資料時要填的空白表格。
      這裡的 params 用來幫助我們解析 URL
   """
   def new(conn, _params) do
     changeset = Topic.changeset(%Topic{}, %{})
 
-    # show the new template
+    # render with a connection and specify the template "new.html"
     # 將自定的變數 changeset 傳到 template
     render conn, "new.html", changeset: changeset
   end
 
-  # 將表格裡的資料傳到第二個引數
+  # 將新增到表格裡的資料傳到第二個引數
   # 第二引數值是由 params = %{"topic" = "使用者輸入的資料"}，轉化而來，因為 params.topic 無法直接找到值，因為 key 是字串，所以改成 %{"topic" => topic} = params 用 topic 來接收 "使用者輸入的資料"。
   def create(conn, %{"topic" => topic}) do
      changeset = Topic.changeset(%Topic{}, topic)
