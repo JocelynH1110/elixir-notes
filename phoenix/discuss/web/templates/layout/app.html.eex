@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <!-- CSS 連結 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Icon 連結 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
 
   <body>
-    <nav class="pink">
+    <nav class="navy">
       <div class="nav-wrapper container">
         <a href="/" class="brand-logo">
           Discussions

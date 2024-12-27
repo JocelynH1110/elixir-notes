@@ -37,8 +37,11 @@ defmodule Discuss.TopicController do
         conn
         |> put_flash(:info, "Topic Created")
         |> redirect(to: topic_path(conn, :index))
-    {:error, changeset} ->
-      render conn, "new.html", changeset: changeset
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Created Failed")
+        |> redirect(to: topic_path(conn, :new))
+        render conn, "new.html", changeset: changeset
     end
   end
 end
