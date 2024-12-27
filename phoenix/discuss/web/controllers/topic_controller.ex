@@ -33,7 +33,10 @@ defmodule Discuss.TopicController do
     # 將新增的資料插入資料庫
     # insert 會自動探測 changeset 是否有符合
     case Repo.insert(changeset) do
-    {:ok, post} ->IO.inspect(post) 
+      {:ok, post} ->
+        conn
+        |> put_flash(:info, "Topic Created")
+        |> redirect(to: topic_path(conn, :index))
     {:error, changeset} ->
       render conn, "new.html", changeset: changeset
     end
