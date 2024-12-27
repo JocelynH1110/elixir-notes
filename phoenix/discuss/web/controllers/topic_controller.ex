@@ -3,7 +3,17 @@ defmodule Discuss.TopicController do
 
   alias Discuss.Topic # 將下面原本要寫成 Discuss.Topic 縮短成 Topic
 
-  # 這裡的 params 用來幫助我們解析 URL
+
+  @doc """
+    取得所有資料庫儲存的資料，並套用 template
+  """
+  def index(conn, _params) do
+    topics = Repo.all(Topic)  # Topic 是資料表名稱。等於 topics = Discuss.Repo.all(Discuss.Topic)
+  end
+
+  @doc """
+     這裡的 params 用來幫助我們解析 URL
+  """
   def new(conn, _params) do
     changeset = Topic.changeset(%Topic{}, %{})
 
