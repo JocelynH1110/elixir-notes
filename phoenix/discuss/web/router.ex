@@ -20,6 +20,7 @@ defmodule Discuss.Router do
     # makes "/topics/new" request,then send them to ":new"
     get "/topics/new",TopicController, :new
     get "/topics/:id", TopicController, :show
+    get "/topics/:id/edit", TopicController, :edit
     post "/topics", TopicController, :create
   end
 
