@@ -47,7 +47,7 @@ defmodule Discuss.TopicController do
 
   def edit(conn, %{"id" =>topic_id}) do
     topic = Repo.get(Topic, topic_id) # 從資料庫取出 Topic 中的 topic_id
-    changeset = Topic.changeset(topic)
+    changeset = Topic.changeset(topic)  # 第二個值給空值，表示尚未改變資料(因為是編輯畫面)，為一個空的 map
 
     render conn, "edit.html", changeset: changeset, topic: topic
   end

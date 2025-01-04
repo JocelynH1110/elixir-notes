@@ -1,3 +1,10 @@
-<%= form_for @changeset, topic_path(@conn, :update), @topic, fn f -> %>
+<%= form_for @changeset, topic_path(@conn, :update, @topic), fn f -> %>
+  <div class="form-group">
 
+  <!-- 這裡 f 是已經有通過 title 定義的。:title 是將 changeset 中的 title 取出，預先填入 title，即當使用者到這頁面會先預見原本尚未編輯的 title 內容 -->
+    <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+    <%= error_tag f,  :title %>
+  </div>
+
+  <%= submit "Save Topic", class: "btn btn-primary" %>
 <% end %>
