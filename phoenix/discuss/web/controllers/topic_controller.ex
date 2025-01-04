@@ -33,7 +33,7 @@ defmodule Discuss.TopicController do
     # 將新增的資料插入資料庫
     # insert 會自動探測 changeset 是否有符合
     case Repo.insert(changeset) do
-      {:ok, post} ->
+      {:ok, _topic} ->
         conn
         |> put_flash(:info, "Topic Created")
         |> redirect(to: topic_path(conn, :index))
@@ -45,10 +45,26 @@ defmodule Discuss.TopicController do
     end
   end
 
-  def edit(conn, %{"id" =>topic_id}) do
+  def edit(conn, %{"id" => topic_id}) do
     topic = Repo.get(Topic, topic_id) # 從資料庫取出 Topic 中的 topic_id
     changeset = Topic.changeset(topic)  # 第二個值給空值，表示尚未改變資料(因為是編輯畫面)，為一個空的 map
 
     render conn, "edit.html", changeset: changeset, topic: topic
+  end
+
+  def update(conn, %{"id" => topic_id, "topic" => topic}) do
+
+    # changeset 指要將更新已存在資料庫資料送到新的 form 裡
+    # 在 get 裡取得的舊資料(struct）傳送到 changeset 的第一個參數，topic 是第二個參數，指的是更新後的資料。
+    changeset = Repo.get(Topic, topic_id) |> Topic.changeset(topic)
+
+    case Repo.update(changeset) do
+      {:ok, _topic} ->
+        conn
+        |> put_flash(:info, "Topic Created")
+        |> redirect(to: topic_path(conn, :index))
+      {:error, changeset} ->
+        render conn, "edit.html", changeset: changeset 
+    end
   end
 end
