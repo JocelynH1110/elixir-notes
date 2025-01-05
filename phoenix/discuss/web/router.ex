@@ -16,13 +16,8 @@ defmodule Discuss.Router do
   scope "/", Discuss do
     pipe_through :browser # Use the default browser stack
 
-    get "/", TopicController, :index
-    # makes "/topics/new" request,then send them to ":new"
-    get "/topics/new",TopicController, :new
-    get "/topics/:id", TopicController, :show
-    get "/topics/:id/edit", TopicController, :edit
-    post "/topics", TopicController, :create
-    put "/topics/:id", TopicController, :update
+    # 會自動導到需要的分頁
+    resources "/", TopicController
   end
 
   # Other scopes may use custom stacks.
