@@ -3,7 +3,14 @@ defmodule Discuss.AuthController do
   use Discuss.Web, :controller
   plug Ueberauth
 
-  def callback(%{assigen: %{ueberauth_auth: auth}} = conn, params) do
+  alias Discuss.User
 
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
+
+    # 取出想插入資料庫的資料
+    user_params = %{token: auth.credentials.token, email: auth.info.email, provider: "github" }
+
+    # 設定一個空 struct，將資料 user_params 插入資料庫
+    changeset = User.changeset(%User{}, user_params)
   end
 end
