@@ -16,7 +16,7 @@ defmodule Discuss.User do
   # // 做了預設值引數在 elixir，如果傳送一個 nil 給 params，它將被預設為 empty map
   def changeset(struct, params \\ %{}) do 
     struct
-    |> cast(params, [:email, :provider, :token]) # 產生一個 changeset，裡面描述如何將原有的 struct，更新成 pramas
+    |> cast(params, [:email, :provider, :token]) # 在 params 裡只有後面 [] 內的東西會被留下。
     |> validate_required([:email, :provider, :token])
     end
 end
