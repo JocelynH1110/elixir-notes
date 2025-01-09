@@ -9,4 +9,5 @@ defmodule Discuss.Repo.Migrations.AddUsers do
 
       timestamps()
   end
+  end
 end
