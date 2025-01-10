@@ -8,6 +8,7 @@ defmodule Discuss.TopicController do
     取得所有資料庫儲存的資料，並套用 template
   """
   def index(conn, _params) do
+    IO.inspect(conn.assigns)
     topics = Repo.all(Topic)  # 等於 topics = Discuss.Repo.all(Discuss.Topic)
 
     render conn, "index.html", topics: topics
