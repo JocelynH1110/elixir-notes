@@ -3,6 +3,7 @@ defmodule Discuss.TopicController do
 
   alias Discuss.Topic # 將下面原本要寫成 Discuss.Topic 縮短成 Topic
 
+  plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
 
   @doc """
     取得所有資料庫儲存的資料，並套用 template
