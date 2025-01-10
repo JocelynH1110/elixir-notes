@@ -24,6 +24,8 @@ defmodule Discuss.Router do
   scope "/auth", Discuss do
     pipe_through :browser # Use the default browser stack
 
+    get "/signout", AuthController, :signout
+
     # :request 自動被 plug Ueberauth module 定義了，所以我們不用定義。
     # 將原本 "/github" 改寫成 "/:provider" ，這樣就不單單只可以接收一種 route
     # 這一個是處理剛進來初始的 OAuth 要求

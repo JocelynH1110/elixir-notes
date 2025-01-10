@@ -15,7 +15,12 @@ defmodule Discuss.AuthController do
     signin(conn, changeset)
   end
 
-  
+  def signout(conn, _params) do
+    conn
+    |> configure_session(drop: true)  # 任何捆在這的使用者 session、data 等等，全部 drop 掉，不是單單只丟某個指定物件，基於安全行考量。
+    |> redirect(to: topic_path(conn, :index))
+  end
+
   @doc """
       從資料庫取得使用者 id，並將其藏入使用者 session。當收到要求時，有 id 顯示，將假設使用者以登入過。 
       此函式目的在於找出使用者是否登入過。
