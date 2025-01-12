@@ -5,7 +5,7 @@ defmodule Discuss.Topic do
   # 以下是說，在 postgres 裡找一個 table 叫 topics，那個 table 有欄位叫 title 其每個值都會放入 string
   schema "topics" do
     field :title, :string
-    belongs_to :use, Discuss.User
+    belongs_to :user, Discuss.User
   end
 
   @doc """

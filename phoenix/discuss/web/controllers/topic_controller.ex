@@ -30,7 +30,10 @@ defmodule Discuss.TopicController do
   # 將新增到表格裡的資料傳到第二個引數
   # 第二引數值是由 params = %{"topic" = "使用者輸入的資料"}，轉化而來，因為 params.topic 無法直接找到值，因為 key 是字串，所以改成 %{"topic" => topic} = params 用 topic 來接收 "使用者輸入的資料"。
   def create(conn, %{"topic" => topic}) do
-     changeset = Topic.changeset(%Topic{}, topic)
+    # 取得使用者，將使用者傳遞到第一個參數（影藏的）建立連接關係。並會建立一個 topics struct 然後傳遞到 changeset 的第一個argument
+    changeset = conn.assigns.user
+      |> build_assoc(:topics)   # models.user 裡的 schema 定義了 :topics 這個名字
+      |> Topic.changeset(topic)
 
     # 將新增的資料插入資料庫
     # insert 會自動探測 changeset 是否有符合

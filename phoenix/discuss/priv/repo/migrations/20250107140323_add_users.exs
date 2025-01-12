@@ -8,6 +8,6 @@ defmodule Discuss.Repo.Migrations.AddUsers do
       add :token, :string
 
       timestamps()
-  end
+    end
   end
 end
