@@ -5,6 +5,9 @@ defmodule Discuss.TopicController do
 
   plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
 
+  # 這個 plug 會看 TopicController 是否有個函式叫做 :check_topic_owner，若有的話，此 plug 會在後面未包含的函式前先行執行。 
+  plug  :check_topic_owner when not action in [:index, :new, :create]
+
   @doc """
     取得所有資料庫儲存的資料，並套用 template
   """
@@ -81,5 +84,22 @@ defmodule Discuss.TopicController do
     conn
     |> put_flash(:info, "Topic Deleted")
     |> redirect(to: topic_path(conn, :index))
+  end
+
+  @doc """
+  確認當前使用者是否為文章的擁有者，若不是就轉址到其他路由。即便改路由到其他擁有者的文章，也會傳回 error。
+  """
+  def check_topic_owner(conn, _params) do   # 這裡的 params 不是 router、form 跟其他 function 不同 
+    # router 裡的 resource helper 裡的會自動拉 id 下來，所以這裡的 params 才會有值。
+    %{params: %{"id" => topic_id}} = conn 
+
+    if Repo.get(Topic, topic_id).user_id == conn.assigns.user.id do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You cannot edit that")
+      |> redirect(to: topic_path(conn, :index))
+      |> halt() # 指停止這個 plug
+    end
   end
 end
