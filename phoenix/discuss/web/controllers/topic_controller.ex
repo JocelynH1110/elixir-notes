@@ -6,7 +6,7 @@ defmodule Discuss.TopicController do
   plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
 
   # 這個 plug 會看 TopicController 是否有個函式叫做 :check_topic_owner，若有的話，此 plug 會在後面未包含的函式前先行執行。 
-  plug  :check_topic_owner when not action in [:index, :new, :create]
+  plug  :check_topic_owner when not action in [:index, :show, :new, :create]
 
   @doc """
     取得所有資料庫儲存的資料，並套用 template
@@ -16,6 +16,12 @@ defmodule Discuss.TopicController do
     topics = Repo.all(Topic)  # 等於 topics = Discuss.Repo.all(Discuss.Topic)
 
     render conn, "index.html", topics: topics
+  end
+
+  def show(conn, %{"id" => topic_id}) do
+    topic = Repo.get!(Topic, topic_id)  # 倘若沒加! 遇到找不到 id 的時候，nil 會被排進 topic 裡，這樣當我們的 template 讀到 nil 值時，會 crash。
+    render conn, "show.html", topic: topic
+
   end
 
   @doc """
@@ -87,7 +93,7 @@ defmodule Discuss.TopicController do
   end
 
   @doc """
-  確認當前使用者是否為文章的擁有者，若不是就轉址到其他路由。即便改路由到其他擁有者的文章，也會傳回 error。
+    確認當前使用者是否為文章的擁有者，若不是就轉址到其他路由。即便改路由到其他擁有者的文章，也會傳回 error。
   """
   def check_topic_owner(conn, _params) do   # 這裡的 params 不是 router、form 跟其他 function 不同 
     # router 裡的 resource helper 裡的會自動拉 id 下來，所以這裡的 params 才會有值。
