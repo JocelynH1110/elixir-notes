@@ -11,4 +11,8 @@ channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
+// 當有人點擊 button，就會執行後面的 function()
+document.querySelector('button').addEventListener('click', function(){
+  channel.push('comment:Hello', { hi: 'there!!' })
+});
 export default socket

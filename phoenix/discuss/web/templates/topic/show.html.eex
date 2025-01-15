@@ -1,1 +1,2 @@
 <%= @topic.title %>
+<button>Ping!</button>  <!-- 當使用者點擊按鈕，將會試圖發布一個訊息，且將訊息送到 Phoenix server 的 websocket -->
