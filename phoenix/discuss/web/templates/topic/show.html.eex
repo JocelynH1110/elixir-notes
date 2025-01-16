@@ -1,4 +1,10 @@
-<%= @topic.title %>
+<h5><%= @topic.title %></h5>
+
+<div class="input-field">
+  <textarea class="materialize-textarea"></textarea>
+  <button class="btn">Add Comment</button>
+</div>
+
 <script>
   // 完整的頁面被下載好，執行 JavaScript file 定義的 createSocket
   document.addEventListener("DOMContentLoaded", function(){

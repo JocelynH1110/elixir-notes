@@ -18,7 +18,7 @@ defmodule Discuss.CommentsChannel do
   @doc """
     當使用者加入新的 comment，或點擊 submit， 將會發射一個事件或發布一個事件給會收到 handle_in() 的伺服器。會儲存 comment
   """
-  def handle_in(name, message, socket) do
+  def handle_in(name, %{"content" => content}, socket) do
     {:reply, :ok, socket}   # 這是告訴 phoenix 目前狀況，讓它回覆給 user
   end
 end
