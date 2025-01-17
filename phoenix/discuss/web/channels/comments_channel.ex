@@ -10,9 +10,11 @@ defmodule Discuss.CommentsChannel do
   # <> 是如何把 string 在 elixir 加在一起。無論 comments: 後接了什麼字，都會自動被安排進變數 topic_id 裡。
   def join("comments:" <> topic_id, _params, socket) do
     topic_id = String.to_integer(topic_id)  # 因為取得的是字串要改成 psql、ecto 認為的 int
-    topic = Repo.get(Topic, topic_id) # 從 Topic models 裡拿出 topic_id
+    topic = Topic 
+      |> Repo.get(topic_id) # 從 Topic models 裡拿出 topic_id
+      |> Repo.preload(:comments)  # 將 comments 載入到 Topic model 裡
 
-    {:ok, %{}, assign(socket, :topic, topic)}   # 將 topic 的整個 struct 安排進 socket。socket.assign.topic。為了將得到的 topic_id 拿給 handle_in 使用。
+    {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}   # 將 topic 的整個 struct 安排進 socket。socket.assign.topic。為了將得到的 topic_id 拿給 handle_in 使用。
   end
 
   @doc """
