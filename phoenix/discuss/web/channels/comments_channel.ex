@@ -29,6 +29,12 @@ defmodule Discuss.CommentsChannel do
 
     case Repo.insert(changeset) do
       {:ok, comment} -> 
+        # 做一個通知，通知所有訂閱了這個 channel 的人
+        # 如果有任何錯誤的話，叫這個 function, broadcast!
+        # 第二個 argument，發送給訂閱此頻道的每個人的事件的名字，或要收到的通知在js方
+        # 第三個，the data that we want to send with this new event.
+        broadcast!(socket, "comments:#{socket.assigns.topic.id}:new", %{comment: comment})
+        
         {:reply, :ok, socket}   # 這是告訴 phoenix 目前狀況，讓它回覆給 user
       {:error, _reason} ->
         {:reply, {:error, %{errors: changeset}}, socket}    
